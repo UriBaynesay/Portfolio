@@ -18,10 +18,11 @@ app.get("/**", (req, res) => {
 const keepServerSpun = () => {
   setInterval(async () => {
     // Requesting the portfolio website to make sure it's availble
-    if (new Date(Date.now()).getHours() < 20) {
+    const hour = new Date().getHours()
+    if ( hour < 20) {
       const project = await read("Portfolio")
       if (project.type === "ok") {
-        fetch(project.data.link)
+        fetch(project.data[0].link)
         console.log("fetched")
       }
     }
