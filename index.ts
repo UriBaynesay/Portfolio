@@ -15,7 +15,20 @@ app.get("/**", (req, res) => {
   res.sendFile(path.join(__dirname, "browser", "index.html"))
 })
 
+const keepServerSpun = () => {
+  setInterval(async () => {
+    // Requesting the portfolio website to make sure it's availble
+    if (new Date(Date.now()).getHours() < 20) {
+      const project = await read("portfolio")
+      if (project.type === "ok") {
+        fetch(project.data.link)
+        console.log("fetched")
+      }
+    }
+  }, 300000)
+}
 
 app.listen(port, () => {
+  keepServerSpun()
   console.log(`Server is up and listening to ${port}`)
 })
