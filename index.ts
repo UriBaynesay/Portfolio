@@ -19,7 +19,7 @@ const keepServerSpun = () => {
   setInterval(async () => {
     // Requesting the portfolio website to make sure it's availble
     if (new Date(Date.now()).getHours() < 20) {
-      const project = await read("portfolio")
+      const project = await read("Portfolio")
       if (project.type === "ok") {
         fetch(project.data.link)
         console.log("fetched")
